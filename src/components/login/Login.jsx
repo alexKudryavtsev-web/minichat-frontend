@@ -1,16 +1,15 @@
 import { Box, Button, Flex, Heading, Input } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
-import { AuthContext, SocketContext } from "../context";
+import React, { useContext } from "react";
+import { AuthContext, SocketContext } from "../../context";
 
 function Login() {
-  const { setIsAuth } = useContext(AuthContext);
+  const { setIsAuth, username, setUsername } = useContext(AuthContext);
   const { socketRef } = useContext(SocketContext);
-  const [name, setName] = useState("");
 
   function loginBtnHandler() {
-    if (name.trim()) {
+    if (username.trim()) {
       setIsAuth(true);
-      socketRef.current.emit("login", name);
+      socketRef.current.emit("login", username);
     }
   }
 
@@ -31,8 +30,8 @@ function Login() {
         </Box>
         <Box m={2}>
           <Input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             placeholder="username"
           />
         </Box>
